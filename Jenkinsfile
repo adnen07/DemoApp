@@ -16,7 +16,7 @@ pipeline {
                 echo "-------------------Clone Stage Done ------------------------------- "
             }
         }
-        stage("Maven Build") {
+        stage("Maven Build for test pipeline") {
             steps {
                 script {
                     sh "mvn -Dmaven.test.failure.ignore=true clean package"
