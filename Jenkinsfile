@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                // Get some code from a GitHub repository
+                // Get some code from a GitHub repository for pipeline
                 git 'https://github.com/adnen07/DemoApp.git'
                 echo "-------------------Clone Stage Done ------------------------------- "
             }
