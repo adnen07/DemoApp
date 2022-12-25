@@ -30,26 +30,11 @@ pipeline {
                 }
             }
         }
-        stage("Publish to Nexus Repository Manager") {
-            steps{
-                 
-                 nexusArtifactUploader(
-                    nexusVersion: 'nexus3',
-                    protocol: 'http',
-                    nexusUrl: '192.168.56.10:8081/',
-                    groupId: 'com.mycompany.app',
-                    version: '1',
-                    repository: 'maven-releases',
-                    credentialsId: 'f3148557-fc2c-4b43-9630-0baa29917de9',
-                    artifacts: [
-                        [artifactId: 'my-app',
-                         classifier: '',
-                         file: 'target/my-app-1.jar',
-                         type: 'jar'
-                         ]
-                    ])
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+                nexusArtifactUploader artifacts: [[artifactId: 'my-app', classifier: '', file: 'my-app-1.jar', type: 'jar']], credentialsId: 'f3148557-fc2c-4b43-9630-0baa29917de9', groupId: 'com.mycompany.app', nexusUrl: '192.168.56.10:8081/repository/maven-releases/', nexusVersion: 'nexus3', protocol: 'http', repository: 'nexusdeploymentrepo', version: '1'
             }
-                        
         }
         
     }    
