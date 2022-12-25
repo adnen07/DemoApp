@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository for pipeline
                 git 'https://github.com/adnen07/DemoApp.git'
-                echo "-------------test ------Clone Stage Done ------------------------------- "
+                echo "-------------------Clone Stage Done ------------------------------- "
             }
         }
         stage("MAVEN CLEAN") {
