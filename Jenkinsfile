@@ -37,6 +37,13 @@ pipeline {
                 }
             }
         }
+        stage("MAVEN BUILD") {
+            steps {
+                script {
+                    sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                }
+            }
+        }
         stage('MAVEN BUILD & DEPLOY TO NEXUS REPO') {
             steps {
                 echo 'Hello World'
