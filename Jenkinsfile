@@ -1,14 +1,14 @@
 pipeline {
     environment{
     registry="adnenettayeb/demoapp"
-    registryCredential='dockerHub'
+    registryCredential='dockerrepo'
     dokerImage="demoapp"
 }
     agent any
     stages {
         stage("Cloning Project"){
             steps {
-                git branch: 'main',
+                git branch: 'master',
                 url: 'https://github.com/adnen07/DemoApp.git';
                 echo 'checkout stage'
             }
@@ -42,14 +42,14 @@ pipeline {
        stage("docker build") {
                        steps{
                          script {
-                            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                            dockerImage = docker.build registry +":$BUILD_NUMBER"
                        }
                  }
        }
        stage("docker push") {
               steps{
                  script {
-                 docker.withRegistry( '', registryCredential ) {
+                 withDockerRegistry(credentialsId: registryCredential) {
                   dockerImage.push()
     }
     }
@@ -58,7 +58,12 @@ pipeline {
     stage('Cleaning up') {
              steps{
              sh "docker rmi $registry:$BUILD_NUMBER"
-}
-}
+        }
+    }
+    stage('running containers'){
+        steps{
+            sh 'docker-compose up -d'
+        }
+    }
     }
 }
